@@ -31,6 +31,9 @@ Q.7 What sacrifices did you make due to time?
 
 ##### Login with Basic Auth UserName & Password:
 
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/login.png">
-</picture>
+![alt text](https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/login.png?raw=true)
+
+##### Screen after login:
+
+![alt text](https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/after-login.png?raw=true)
+
