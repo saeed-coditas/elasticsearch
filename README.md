@@ -2,8 +2,8 @@
 
 Q.1 What did you choose to automate the provisioning and bootstrapping of the instance? Why?
 
-    I.  Automation: I used Terraform for provisioning the AWS resource.
-    II. BootStraping: I used a Shell Scripting for configuring &  installing the elasticsearch.
+    I.  For Automation: Used Terraform for provisioning the AWS resources.
+    II. For BootStraping: Used a Shell Scripting for installing & configuring the elasticsearch.
 
 Q.2 How did you choose to secure ElasticSearch? Why?
 
@@ -11,7 +11,7 @@ Q.2 How did you choose to secure ElasticSearch? Why?
 
 Q.3 How would you monitor this instance? What metrics would you monitor?
 
-    We can Monitor the Instances using AWS Cloudwatch Service. Also we can configure Prometheus, Grafana for visualization. We can monitor metrics like CPU Utilization, Memory Utilization and Disk Utilization.
+    We can Monitor the Instances using AWS Cloudwatch Service. Also we can configure Prometheus, Grafana for visualization. We can monitor metrics like CPU Utilization, Memory Utilization and Disk Utilization of the instance.
 
 Q.4 Could you extend your solution to launch a secure cluster of ElasticSearch nodes? What would need to change to support this use case?
 
@@ -29,11 +29,12 @@ Q.7 What sacrifices did you make due to time?
 
     SSL Automation connection is pending for DNS. But it's working with default SSL with IP.
 
+### Screenshots
+
 ##### Login with Basic Auth UserName & Password:
 
-![alt text](https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/login.png?raw=true)
+![image](https://user-images.githubusercontent.com/76781622/199305183-e7722dcb-2b5e-4a39-a808-aee2eb02d310.png)
 
 ##### Screen after login:
 
-![alt text](https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/after-login.png?raw=true)
-
+![image](https://user-images.githubusercontent.com/76781622/199305779-cf1fd728-452b-4096-ab96-5e50ebbcd0b1.png)
