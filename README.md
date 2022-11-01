@@ -38,3 +38,9 @@ Q.7 What sacrifices did you make due to time?
 ##### Screen after login:
 
 ![image](https://user-images.githubusercontent.com/76781622/199305779-cf1fd728-452b-4096-ab96-5e50ebbcd0b1.png)
+
+##### Created an Elasticsearch Index Using cURL & View:
+
+![image](https://user-images.githubusercontent.com/76781622/199325111-28908468-1437-4443-9cea-dbdd11dd319f.png)
+
+##### 
