@@ -28,3 +28,9 @@ Q.6 Was it a priority to make your code well structured, extensible, and reusabl
 Q.7 What sacrifices did you make due to time?
 
     SSL Automation connection is pending for DNS. But it's working with default SSL with IP.
+
+##### Login with Basic Auth UserName & Password:
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/saeed-coditas/elasticsearch/blob/main/screenshots/login.png">
+</picture>
