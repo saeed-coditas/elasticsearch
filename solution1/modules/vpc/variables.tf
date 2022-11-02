@@ -10,6 +10,6 @@ variable pub_sub2_cidr_block {
   default = "10.40.2.0/24"
 }
 
-variable "env" {}
+variable "environment" {}
 
 variable "region" {}

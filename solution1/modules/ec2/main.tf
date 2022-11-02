@@ -1,4 +1,4 @@
-resource "aws_instance" "web" {
+resource "aws_instance" "elastic" {
   ami                         = var.ubuntu_ami
   instance_type               = var.instance_type
   key_name                    = module.key_pair.key_pair_name
@@ -9,19 +9,29 @@ resource "aws_instance" "web" {
   user_data                   = file(var.userdata)
 
   tags = {
-    Name = "${var.env}-elasticsearch"
+    Name = "${var.environment}-elasticsearch"
   }
+}
+
+locals {
+  key_name = "ssh-keys/${var.environment}-elstic-keypair.pem"
 }
 
 module "key_pair" {
   source = "terraform-aws-modules/key-pair/aws"
 
-  key_name              = "elastic-keypair"
+  key_name              = "${var.environment}-elastic-keypair"
   create_private_key    = true
   private_key_algorithm = "RSA"
   private_key_rsa_bits  = 4096
 }
 
+resource "aws_s3_object" "this" {
+  key      = local.key_name
+  bucket   = var.storage_bucket_name
+  content  = module.key_pair.private_key_pem
+  metadata = {}
+}
 
 resource "aws_iam_instance_profile" "elasticsearchrole" {
   name = "elasticsearchrole"
@@ -45,8 +55,6 @@ resource "aws_iam_role" "elasticsearchrole" {
     ]
 }
 POLICY
-
-  #managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
 
 }
 

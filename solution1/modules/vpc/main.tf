@@ -2,7 +2,7 @@ resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr_block
 
   tags = {
-    Name = "${var.env}-vpc"
+    Name = "${var.environment}-vpc"
   }
 }
 
@@ -13,7 +13,7 @@ resource "aws_subnet" "pub_sub1" {
   availability_zone       = "${var.region}a"
 
   tags = {
-    Name = "${var.env}-pub-sub-1"
+    Name = "${var.environment}-pub-sub-1"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_subnet" "pub_sub2" {
   availability_zone       = "${var.region}b"
 
   tags = {
-    Name = "${var.env}-pub-sub-2"
+    Name = "${var.environment}-pub-sub-2"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.env}-igw"
+    Name = "${var.environment}-igw"
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_route_table" "pub_rtb" {
   }
 
   tags = {
-    Name = "${var.env}-pub-rtb"
+    Name = "${var.environment}-pub-rtb"
   }
 }
 
@@ -84,6 +84,12 @@ resource "aws_security_group" "sg" {
         protocol        = "tcp"
         cidr_blocks     = ["0.0.0.0/0"]
     }
+    ingress {
+        from_port       = 0
+        to_port         = 0
+        protocol        = "icmp"
+        cidr_blocks     = ["0.0.0.0/0"]
+    }
     egress {
         from_port       = 0
         to_port         = 0
@@ -93,7 +99,7 @@ resource "aws_security_group" "sg" {
     
   tags = {
 
-    Name = "${var.env}-security_group"
+    Name = "${var.environment}-security_group"
   
   }
 }

@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-elastic"
-    key    = "state/terraform.tfstate"
-    region = "us-west-2"
+    bucket  = "terraform-elastic"
+    key     = "state/terraform.tfstate"
+    region  = "us-west-2"
     profile = "myacc"
   }
 

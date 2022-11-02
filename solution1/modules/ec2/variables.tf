@@ -12,6 +12,10 @@ variable "sg_id" {}
 
 variable "userdata" { }
 
-variable "env" {}
+variable "environment" {}
 
 variable "region" {}
+
+variable "storage_bucket_name" {
+    default = "terraform-elastic"
+}
