@@ -12,4 +12,5 @@ locals {
   }
   storage_bucket_name = "terraform-elastic"
   key_name = "env:/${local.environment}/ssh-keys/${local.environment}-${var.product}-keypair.pem"
+  local_path = "/home/coditas/"
 }

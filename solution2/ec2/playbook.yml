@@ -1,0 +1,68 @@
+- name: Configuring ElasticSearch
+  hosts: all
+  become: yes
+  become_method: sudo
+
+  tasks:
+
+  - name: Apt Update
+    apt:
+      update_cache: yes
+    become: true
+
+  - name: Installing Java openjdk-8
+    apt:
+      name: openjdk-8-jdk
+      state: present
+
+  - name: Installing apt-transport-https
+    apt:
+      name: apt-transport-https
+      state: present
+
+  - name: Installing AWS-CLI
+    apt:
+      name: awscli
+      state: present
+
+  - name: Download ElasticSearch .deb package
+    get_url:
+      url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.4.3-amd64.deb
+      dest: /home/ubuntu/
+      mode: '0644'
+
+  - name: Download ElasticSearch .sha512
+    get_url:
+      url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.4.3-amd64.deb.sha512
+      dest: /home/ubuntu/
+      mode: '0644'
+
+  - name: Checking .sha512
+    command: shasum -a 512 -c elasticsearch-8.4.3-amd64.deb.sha512
+
+  - name: Installing Elasticsearch .deb package
+    apt:
+      deb: elasticsearch-8.4.3-amd64.deb
+
+  - name: Inserted (transport.host 127.0.0.1) to elasticsearch.yml file
+    lineinfile:
+      path: /etc/elasticsearch/elasticsearch.yml
+      line: 'transport.host: 127.0.0.1'
+
+  - name: Daemon Re-load
+    service:
+      daemon_reload: yes
+
+  - name: Starting Elasticsearch Service
+    service:
+      name: elasticsearch.service
+      state: started
+      enabled: yes
+
+  - name: Resetting password for elasticsearch and saving it in file
+    shell: /usr/share/elasticsearch/bin/elasticsearch-reset-password --batch -u  elastic  >> /tmp/elastic.txt
+    become: true
+
+  - name: Copying elasticsearch password file to S3 
+    command: aws s3 cp /tmp/elastic.txt s3://terraform-elastic/env:/dev/ssh-keys/
+    become: true

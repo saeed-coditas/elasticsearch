@@ -1,10 +1,4 @@
-# Creating EIP
-# resource "aws_eip" "es_eip" {
-#   instance = module.ec2_instance.id
-#   vpc      = true
-# }
-
-# Creating elasticsearch server
+####################### Creating Elasticsearch Server #######################
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "4.1.4"
@@ -16,7 +10,6 @@ module "ec2_instance" {
   monitoring             = true
   vpc_security_group_ids = [module.security_group.security_group_id]
   subnet_id              = data.terraform_remote_state.vpc.outputs.vpc_details.public_subnets.0
-  ###user_data              = filebase64("./userdata.sh")
   iam_instance_profile = "${aws_iam_instance_profile.elasticsearchrole.name}"
   associate_public_ip_address = true
 
@@ -24,8 +17,7 @@ module "ec2_instance" {
   tags                   = local.tags
 }
 
-
-# Creating Security Group
+####################### Creating Security Group #############################
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.9.0"
@@ -72,25 +64,7 @@ module "security_group" {
   ]
 }
 
-# Creating Keypair
-module "key_pair" {
-  source = "terraform-aws-modules/key-pair/aws"
-
-  key_name              = "${local.environment}-${var.product}-keypair"
-  create_private_key    = true
-  private_key_algorithm = "RSA"
-  private_key_rsa_bits  = 4096
-}
-
-# Save Key to S3
-resource "aws_s3_object" "this" {
-  key      = local.key_name
-  bucket   = local.storage_bucket_name
-  content  = module.key_pair.private_key_pem
-  metadata = {}
-}
-
-# IAM Role & Policy Attachment
+####################### IAM Role & Policy Attachment ########################
 resource "aws_iam_instance_profile" "elasticsearchrole" {
   name = "elasticsearchrole"
   role = "${aws_iam_role.elasticsearchrole.name}"
@@ -135,4 +109,44 @@ POLICY
 resource "aws_iam_role_policy_attachment" "ec2-s3-role" {
   role = "${aws_iam_role.elasticsearchrole.name}"
   policy_arn = "${aws_iam_policy.iam_policy.arn}"
+}
+##############################################################################
+
+########################### Creating Keypair ###############################
+module "key_pair" {
+  source = "terraform-aws-modules/key-pair/aws"
+
+  key_name              = "${local.environment}-${var.product}-keypair"
+  create_private_key    = true
+  private_key_algorithm = "RSA"
+  private_key_rsa_bits  = 4096
+}
+
+######################### Save PEM Key to S3 ###############################
+resource "aws_s3_object" "this" {
+  key      = local.key_name
+  bucket   = local.storage_bucket_name
+  content  = module.key_pair.private_key_pem
+  metadata = {}
+}
+
+######################## Save PEM Key to Local Path #########################
+resource "local_file" "saveKey" {
+  content = module.key_pair.private_key_pem
+  filename = "${local.local_path}${local.environment}-${var.product}-keypair.pem"
+}
+
+####################### Local exec ########################
+
+resource "null_resource" "configure_server"{
+  depends_on = [module.ec2_instance]
+
+  provisioner "local-exec"{
+    # this command will be executed on local machine and will change the permission of key file which we saved previously
+    command = "chmod 400 ${local.local_path}${local.environment}-${var.product}-keypair.pem"
+  }
+
+  provisioner "local-exec"{
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ${local.local_path}${local.environment}-${var.product}-keypair.pem -i '${module.ec2_instance.public_ip},' playbook.yml"
+  }
 }
