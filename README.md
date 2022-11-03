@@ -59,7 +59,9 @@ solution1 folder content   | ec2 module folder content |  vpc module folder cont
 ##### Steps to deploy elasticsearch
 
 Make proper changes to variables.tf files inside module/ec2 & module/vpc according to your requirement
+
 userdata.sh file is there in solution1 folder for installation & configuration elasticsearch
+
 #change bucket name in last line which saves elasticsearch password to S3
 
     cd elasticsearch/solution1
@@ -77,7 +79,9 @@ solution2 folder content   | ec2 folder content |  vpc module folder content
 ##### Steps to deploy elasticsearch
 
 Make proper changes to terraform.tfvars & locals.tf files inside ec2 & vpc according to your requirement
+
 playbook.yml is there in ec2 folder for installation & configuration elasticsearch
+
 #change bucket name in last line which saves elasticsearch password to S3
 
     cd elasticsearch/solution2/vpc
