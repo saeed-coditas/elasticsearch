@@ -62,7 +62,7 @@ Make proper changes to variables.tf files inside module/ec2 & module/vpc accordi
 
 userdata.sh file is there in solution1 folder for installation & configuration elasticsearch
 
-#change bucket name in last line which saves elasticsearch password to S3
+change bucket name in last line which saves elasticsearch password to S3
 
     cd elasticsearch/solution1
     terraform init
@@ -82,7 +82,7 @@ Make proper changes to terraform.tfvars & locals.tf files inside ec2 & vpc accor
 
 playbook.yml is there in ec2 folder for installation & configuration elasticsearch
 
-#change bucket name in last line which saves elasticsearch password to S3
+change bucket name in last line which saves elasticsearch password to S3
 
     cd elasticsearch/solution2/vpc
     terraform init
