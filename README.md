@@ -12,7 +12,7 @@ Q.1 What did you choose to automate the provisioning and bootstrapping of the in
 
 Q.2 How did you choose to secure ElasticSearch? Why?
 
-    We can secure elasticseach using SSL Certificate/TLS  Connections and also we can configured using User/Roles.
+    We can secure elasticseach using SSL Certificate/TLS Connections, Security Groups, NACL, WAF.
 
 Q.3 How would you monitor this instance? What metrics would you monitor?
 
@@ -24,7 +24,7 @@ Q.4 Could you extend your solution to launch a secure cluster of ElasticSearch n
 
 Q.5 Could you extend your solution to replace a running ElasticSearch instance with little or no downtime? How?
 
-    We can Use AWS ElasticSearch Manage Service, also we can use scaling.
+    We can make a cluster of elasticsearch and enable replication.
 
 Q.6 Was it a priority to make your code well structured, extensible, and reusable?
 
