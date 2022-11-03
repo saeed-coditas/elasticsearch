@@ -84,13 +84,19 @@ playbook.yml is there in ec2 folder for installation & configuration elasticsear
 
 change bucket name in last line which saves elasticsearch password to S3
 
+Provision VPC instance:
+
     cd elasticsearch/solution2/vpc
     terraform init
+    terraform workspace new dev
     terraform plan
     terraform apply
+
+Provision Elasticsearch Instance:
     
     cd elasticsearch/solution2/ec2
     terraform init
+    terraform workspace new dev
     terraform plan
     terraform apply
 
