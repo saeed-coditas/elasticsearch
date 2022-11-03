@@ -56,7 +56,7 @@ solution1 folder content   | ec2 module folder content |  vpc module folder cont
 :-------------------------:|:-------------------------:|:-------------------------:
 ![image](https://user-images.githubusercontent.com/76781622/199658053-88a62e18-2f9a-47ea-a15d-a336b9fc7a44.png) | ![image](https://user-images.githubusercontent.com/76781622/199658110-dce24e38-235b-4ed3-9c84-f96d3516a1e2.png) | ![image](https://user-images.githubusercontent.com/76781622/199658154-1a9b83ac-1194-49f9-971c-680bd7043801.png)
 
-##### Steps to deploy elasticsearch
+##### Steps to deploy elasticsearch:
 
 Make proper changes to variables.tf files inside module/ec2 & module/vpc according to your requirement
 
@@ -76,7 +76,7 @@ solution2 folder content   | ec2 folder content |  vpc module folder content
 :-------------------------:|:-------------------------:|:-------------------------:
 ![image](https://user-images.githubusercontent.com/76781622/199659896-757d8c9f-a5bd-4803-8112-359891d79589.png) | ![image](https://user-images.githubusercontent.com/76781622/199659944-92d031cc-3f7e-42d1-8181-07d05d3b6920.png) | ![image](https://user-images.githubusercontent.com/76781622/199659980-5fc68326-f76d-4d5c-9a57-820a1fb184a8.png)
 
-##### Steps to deploy elasticsearch
+##### Steps to deploy elasticsearch:
 
 Make proper changes to terraform.tfvars & locals.tf files inside ec2 & vpc according to your requirement
 
@@ -84,7 +84,7 @@ playbook.yml is there in ec2 folder for installation & configuration elasticsear
 
 change bucket name in last line which saves elasticsearch password to S3
 
-Provision VPC instance:
+##### Create VPC:
 
     cd elasticsearch/solution2/vpc
     terraform init
@@ -92,7 +92,7 @@ Provision VPC instance:
     terraform plan
     terraform apply
 
-Provision Elasticsearch Instance:
+##### Create Elasticsearch Instance:
     
     cd elasticsearch/solution2/ec2
     terraform init
